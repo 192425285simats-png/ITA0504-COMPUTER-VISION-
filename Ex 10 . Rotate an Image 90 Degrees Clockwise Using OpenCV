@@ -1,0 +1,22 @@
+
+import cv2
+
+# Step 1: Read the input image
+img = cv2.imread("image.jpg")
+
+if img is None:
+    print("Error: Image not found!")
+else:
+    # Step 2: Rotate image 90 degrees clockwise
+    rotated = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+
+    # Step 3: Display original and rotated images
+    cv2.imshow("Original Image", img)
+    cv2.imshow("Rotated Image - 90 Degrees Clockwise", rotated)
+
+    # Step 4: Save the rotated image
+    cv2.imwrite("rotated_image.jpg", rotated)
+
+    # Step 5: Wait and close windows
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
