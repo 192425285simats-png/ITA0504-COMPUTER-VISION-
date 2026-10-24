@@ -1,0 +1,28 @@
+
+import cv2
+
+# Step 1: Read the image
+img = cv2.imread("image.jpg")
+
+# Step 2: Check whether the image is loaded
+if img is None:
+    print("Error: Image not found!")
+else:
+    # Step 3: Convert the image to grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # Step 4: Apply Canny edge detection
+    edges = cv2.Canny(gray, 100, 200)
+
+    # Step 5: Display the original image
+    cv2.imshow("Original Image", img)
+
+    # Step 6: Display the outline image
+    cv2.imshow("Canny Edge Detection", edges)
+
+    # Step 7: Save the outline image
+    cv2.imwrite("outline_image.jpg", edges)
+
+    # Step 8: Wait for a key press and close windows
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
