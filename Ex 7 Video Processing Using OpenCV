@@ -1,0 +1,48 @@
+
+import cv2
+import time
+
+# Read the captured video
+video = cv2.VideoCapture("captured_video.mp4")
+
+if not video.isOpened():
+    print("Error: Cannot open video!")
+else:
+    fps = video.get(cv2.CAP_PROP_FPS)
+
+    if fps <= 0:
+        fps = 30
+
+    print("Original FPS:", fps)
+
+    # Display video in normal, slow, and fast motion
+    modes = [
+        ("Normal Motion", 1.0),
+        ("Slow Motion", 0.5),
+        ("Fast Motion", 2.0)
+    ]
+
+    for mode_name, speed in modes:
+        video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        delay = max(1, int(1000 / (fps * speed)))
+
+        while True:
+            ret, frame = video.read()
+
+            if not ret:
+                break
+
+            cv2.imshow(mode_name, frame)
+
+            # Press 'q' to stop playback
+            if cv2.waitKey(delay) & 0xFF == ord('q'):
+                break
+
+        cv2.destroyAllWindows()
+
+        # Stop if 'q' was pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    video.release()
+    cv2.destroyAllWindows()
